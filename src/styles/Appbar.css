@@ -1,0 +1,18 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    display: flex;
+    margin-top: 64px; /* Adjust based on AppBar height */
+}
+
+.left-menu {
+    width: 250px; /* Adjust width as needed */
+}
+
+.content {
+    flex-grow: 1;
+    padding: 16px;
+}

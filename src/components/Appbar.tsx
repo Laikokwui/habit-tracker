@@ -4,15 +4,22 @@ import { AppBar, AppBarSection, AppBarSpacer, Avatar } from '@progress/kendo-rea
 import { Badge, BadgeContainer } from '@progress/kendo-react-indicators';
 import { bellIcon, menuIcon } from '@progress/kendo-svg-icons';
 import { Button } from '@progress/kendo-react-buttons';
+import Link from 'next/link';
+import LeftMenu from './LeftMenu'; // Import LeftMenu component
 
-const kendokaAvatar = 'https://demos.telerik.com/kendo-react-ui/assets/suite/kendoka-react.png';
+const Appbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const kendokaAvatar = "https://demos.telerik.com/kendo-react-ui/assets/suite/kendoka-react.png";
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false); // State to manage menu visibility
 
-const Appbar = () => {
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
-        <>
+        <div className="app-container">
             <AppBar themeColor="primary" className="fixed top-0 w-full">
                 <AppBarSection>
-                    <Button type="button" fillMode="flat" svgIcon={menuIcon} />
+                    <Button type="button" fillMode="flat" svgIcon={menuIcon} onClick={toggleMenu} /> {/* Toggle menu */}
                 </AppBarSection>
 
                 <AppBarSpacer className="w-1" />
@@ -25,15 +32,18 @@ const Appbar = () => {
 
                 <AppBarSection>
                     <ul className="text-sm list-none p-0 m-0 flex">
-                    <li className="mx-2 hover:text-blue-400 cursor-pointer">
-                        <span>Home</span>
-                    </li>
-                    <li className="mx-2 hover:text-blue-400 cursor-pointer">
-                        <span>Calender</span>
-                    </li>
-                    <li className="mx-2 hover:text-blue-400 cursor-pointer">
-                        <span>Progress</span>
-                    </li>
+                        <li className="mx-2 hover:text-blue-400 cursor-pointer">
+                            <Link href="/">Home</Link>
+                        </li>
+                        <li className="mx-2 hover:text-blue-400 cursor-pointer">
+                            <Link href="/dashboard">Dashboard</Link>
+                        </li>
+                        <li className="mx-2 hover:text-blue-400 cursor-pointer">
+                            <Link href="/calendar">Calendar</Link>
+                        </li>
+                        <li className="mx-2 hover:text-blue-400 cursor-pointer">
+                            <Link href="/progress">Progress</Link>
+                        </li>
                     </ul>
                 </AppBarSection>
 
@@ -57,7 +67,13 @@ const Appbar = () => {
                     </Avatar>
                 </AppBarSection>
             </AppBar>
-        </>
+            <div className="main-content flex">
+                {isMenuOpen && <LeftMenu />} {/* Conditionally render LeftMenu */}
+                <div className="content flex-grow p-4">
+                    {children}
+                </div>
+            </div>
+        </div>
     );
 };
 
