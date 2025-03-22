@@ -3,8 +3,11 @@
 import * as React from 'react';
 
 import { Pager, PageChangeEvent } from '@progress/kendo-react-data-tools';
-import { ProgressBar } from '@progress/kendo-react-progressbars';
 import { Grid, GridColumn } from '@progress/kendo-react-grid';
+import { ActionsLayout, Dialog, DialogActionsBar } from '@progress/kendo-react-dialogs';
+import { Button } from '@progress/kendo-react-buttons';
+import { Tooltip } from '@progress/kendo-react-tooltip';
+import { DropDownList } from '@progress/kendo-react-dropdowns';
 
 import Appbar from '@/components/Appbar';
 
@@ -15,9 +18,18 @@ interface PageInterface {
 
 export default function Home() {
 	const [page, setPage] = React.useState<PageInterface>({ skip: 0, take: 5 });
-
     const [skip, setSkip] = React.useState(0);
     const [take, setTake] = React.useState(5);
+	const [visible, setVisible] = React.useState(false);
+    const [layout, setLayout] = React.useState<ActionsLayout>('stretched');
+
+    const toggleDialog = () => {
+        setVisible(!visible);
+    };
+
+    const onCreateData = () => {
+        setVisible(!visible);
+    };
 
 	const habits = [
 		{
@@ -39,9 +51,36 @@ export default function Home() {
         setTake(event.take);
     };
 
+	const categories = ['Pizza', 'Burger', 'Pasta', 'Burrito'];
+
 	return (
 		<Appbar>
-			<h1>My Habits</h1>
+			<div className="flex justify-between mb-2">
+				<h1>My Habits</h1>
+				<Tooltip anchorElement="target" position="left" parentTitle={true}>
+					<Button title="create habits" type="button" onClick={toggleDialog} id="open-dialog" >
+						Create
+					</Button>
+				</Tooltip>
+			</div>
+			
+			<div>
+				{visible && (
+					<Dialog title={'Create Habit'} onClose={toggleDialog} width={350}>
+						<div className="example-config">
+							<DropDownList style={{ width: '300px' }} data={categories} defaultValue="Pizza" />
+						</div>
+						<DialogActionsBar layout={layout}>
+							<Button type="button" themeColor={'primary'} onClick={toggleDialog}>
+								Cancel
+							</Button>
+							<Button type="button" onClick={onCreateData}>
+								Create
+							</Button>
+						</DialogActionsBar>
+					</Dialog>
+				)}
+			</div>
 			<hr />
             <Grid
                 style={{
@@ -66,8 +105,6 @@ export default function Home() {
 				pageSizes={[5, 10, 15, 20]}
 			/>
 			<br/>
-			<h1>My Progress Today</h1>
-			<ProgressBar value={2} max={10} />
 		</Appbar>
 	);
 }

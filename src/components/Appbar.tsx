@@ -5,11 +5,11 @@ import { Badge, BadgeContainer } from '@progress/kendo-react-indicators';
 import { bellIcon, menuIcon } from '@progress/kendo-svg-icons';
 import { Button } from '@progress/kendo-react-buttons';
 import Link from 'next/link';
-import LeftMenu from './LeftMenu'; // Import LeftMenu component
+import LeftMenu from './LeftMenu';
 
 const Appbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const kendokaAvatar = "https://demos.telerik.com/kendo-react-ui/assets/suite/kendoka-react.png";
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false); // State to manage menu visibility
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -19,16 +19,12 @@ const Appbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <div className="app-container">
             <AppBar themeColor="primary" className="fixed top-0 w-full">
                 <AppBarSection>
-                    <Button type="button" fillMode="flat" svgIcon={menuIcon} onClick={toggleMenu} /> {/* Toggle menu */}
+                    <Button type="button" fillMode="flat" svgIcon={menuIcon} onClick={toggleMenu} />
                 </AppBarSection>
-
-                <AppBarSpacer className="w-1" />
 
                 <AppBarSection>
-                    <h1 className="text-lg m-0">HabitTracker</h1>
+                    <h1 className="text-lg m-0">HabitTrackers</h1>
                 </AppBarSection>
-
-                <AppBarSpacer className="w-8" />
 
                 <AppBarSection>
                     <ul className="text-sm list-none p-0 m-0 flex">
@@ -42,7 +38,7 @@ const Appbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                             <Link href="/calendar">Calendar</Link>
                         </li>
                         <li className="mx-2 hover:text-blue-400 cursor-pointer">
-                            <Link href="/progress">Progress</Link>
+                            <Link href="/settings">Settings</Link>
                         </li>
                     </ul>
                 </AppBarSection>

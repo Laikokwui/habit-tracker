@@ -12,7 +12,6 @@ import PopularPagesChart from "./popular-pages-chart";
 import UsersGrid from "./users-grid";
 import VisitorsDonut from "./visitors-donut";
 import Appbar from "@/components/Appbar";
-import LeftMenu from "@/components/LeftMenu";
 
 export default function Dashboard() {
     const [data, setData] = React.useState([
